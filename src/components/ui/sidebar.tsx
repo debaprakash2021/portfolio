@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable react-refresh/only-export-components */
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -606,10 +608,18 @@ function SidebarMenuSkeleton({
 }: React.ComponentProps<"div"> & {
   showIcon?: boolean
 }) {
-  // Random width between 50 to 90%.
+  const id = React.useId()
+
+  // Deterministic pseudo-random width derived from component id to avoid
+  // calling impure functions during render (ensures stable SSR & linting).
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+    let hash = 0
+    for (let i = 0; i < id.length; i++) {
+      hash = id.charCodeAt(i) + ((hash << 5) - hash)
+    }
+    const val = Math.abs(hash) % 40 + 50
+    return `${val}%`
+  }, [id])
 
   return (
     <div

@@ -19,12 +19,6 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-    rules: {
-      // Some external UI components export helpers/constants which trip
-      // the fast-refresh rule; disable here to avoid failing CI on third-party
-      'react-refresh/only-export-components': 'off',
-      // Allow occasional use of impure functions that are used defensively
-      'react-hooks/purity': 'off'
-    },
+
   },
 ])

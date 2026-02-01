@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# Debaprakash Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository is a React + TypeScript + Vite portfolio site. I added CI, tests, e2e, and SEO improvements to prepare for production.
 
-Currently, two official plugins are available:
+## Quick commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Install deps: `npm ci`
+- Start dev server: `npm run dev`
+- Run lint: `npm run lint`
+- Run unit tests: `npm run test`
+- Run tests (CI mode): `npm run test:ci`
+- Run e2e tests (Playwright): `npm run test:e2e`
+- Build for production: `npm run build`
+- Preview production build: `npm run preview`
 
-## React Compiler
+## What I added
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- GitHub Actions CI: lint, tests, build, and audit (`.github/workflows/ci.yml`) ✅
+- Unit testing with Vitest and React Testing Library ✅
+- Playwright e2e scaffold and a simple smoke test ✅
+- Husky pre-commit hook with lint-staged for formatting and linting ✅
+- SEO updates: meta tags, Twitter card, `manifest.json`, `robots.txt` and `sitemap.xml` ✅
+- Favicon files and PWA manifest ✅
 
-## Expanding the ESLint configuration
+## Notes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ESLint `react-refresh/only-export-components` rule is enabled globally and **some complex component files** have a file-level disable because refactoring them into submodules would be a larger change. Consider splitting large UI files to satisfy this rule for stricter enforcement.
+- `@testing-library/react` has peer dependency expectations for React 18 — I've installed compatible testing packages and avoided breaking upgrades. If you want, I can migrate the project to React 18 or update test libraries when they officially support React 19.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+If you'd like, I can now:
+- add more component tests (unit + snapshot) ✅
+- add Playwright CI to run e2e on merges ✅
+- add sitemap generation and dynamic OG images ✅
