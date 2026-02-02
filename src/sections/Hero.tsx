@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import mrJena from '../mr_jena.jpg';
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -123,9 +124,9 @@ export default function Hero() {
     >
       {/* Diagonal Layout Container */}
       <div className="w-full min-h-screen relative">
-        
+
         {/* Top Left Content */}
-        <div 
+        <div
           ref={textRef}
           className="absolute top-24 lg:top-32 left-6 lg:left-12 z-20 max-w-xl"
         >
@@ -143,7 +144,7 @@ export default function Hero() {
               ref={headlineRef}
               className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black leading-none overflow-hidden"
             >
-              <span 
+              <span
                 className="block hollow-text"
                 style={{
                   WebkitTextStroke: '2px #d1e29d',
@@ -153,7 +154,7 @@ export default function Hero() {
               >
                 {splitText('DEBA')}
               </span>
-              <span 
+              <span
                 className="block hollow-text mt-1"
                 style={{
                   WebkitTextStroke: '2px #f7784e',
@@ -173,8 +174,8 @@ export default function Hero() {
 
           {/* Description */}
           <p className="description text-sm lg:text-base text-white/50 max-w-md mb-8 leading-relaxed">
-            Computer Science student at LPU crafting modern web applications 
-            with cutting-edge technologies. Passionate about creating seamless 
+            Computer Science student at LPU crafting modern web applications
+            with cutting-edge technologies. Passionate about creating seamless
             user experiences and robust backend systems.
           </p>
 
@@ -236,15 +237,15 @@ export default function Hero() {
         >
           {/* Glow effect behind image */}
           <div className="absolute -inset-4 bg-gradient-to-tl from-lime/10 via-coral/10 to-transparent rounded-tl-[100px] blur-3xl opacity-60" />
-          
+
           {/* Image container */}
           <div className="relative h-full overflow-hidden rounded-tl-[60px] lg:rounded-tl-[100px] border-l border-t border-white/10">
             <img
-              src="/hero-portrait.jpg"
+              src={mrJena}
               alt="Debaprakash"
               className="w-full h-full object-cover object-top"
             />
-            
+
             {/* Gradient overlays */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
@@ -264,7 +265,7 @@ export default function Hero() {
           </div>
 
           {/* Floating badge - Projects */}
-          <div 
+          <div
             className="floating-badge absolute top-20 left-8 lg:top-32 lg:-left-12 glass rounded-2xl px-4 py-3 border border-white/10"
           >
             <div className="flex items-center gap-3">

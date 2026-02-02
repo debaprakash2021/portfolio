@@ -72,11 +72,35 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert(data.error || 'Failed to send message.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -245,15 +269,22 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-lime text-black font-medium rounded-xl hover:shadow-glow-lg transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3 bg-lime text-black font-medium rounded-xl hover:shadow-glow-lg transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Send size={18} />
-                Send Message
+                {isSubmitting ? (
+                  <span>Sending...</span>
+                ) : (
+                  <>
+                    <Send size={18} />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
